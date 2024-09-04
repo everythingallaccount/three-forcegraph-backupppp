@@ -1,44 +1,62 @@
 <head>
-  <style> body { margin: 0; } </style>
+    <style> body {
+        margin: 0;
+    } </style>
 
-  <script type="importmap">{ "imports": {
+    <script type="importmap">{ "imports": {
     "three": "//unpkg.com/three/build/three.module.js",
     "three/addons/": "//unpkg.com/three/examples/jsm/"
-  }}</script>
-  <script type="module">
-    import * as THREE from 'three';
-    window.THREE = THREE;
-  </script>
+  }}
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
 
-  <script src="//unpkg.com/three-forcegraph" defer></script>
-  <!--<script src="../../dist/three-forcegraph.js" defer></script>-->
+        window.THREE = THREE;
+    </script>
+
+    <!--    <script src="//unpkg.com/three-forcegraph" defer></script>-->
+    <script src="../../dist/three-forcegraph.js" defer></script>
 </head>
 
 <body>
-  <div id="3d-graph"></div>
+<div id="3d-graph"></div>
 
-  <script type="module">
-    import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
+<script type="module">
+    import {TrackballControls} from 'three/addons/controls/TrackballControls.js';
+
+
+    let l = console.log;
+
 
     // Gen random data
-    const N = 300;
+    const N = 30;
     const gData = {
-      nodes: [...Array(N).keys()].map(i => ({ id: i })),
-      links: [...Array(N).keys()]
-        .filter(id => id)
-        .map(id => ({
-          source: id,
-          target: Math.round(Math.random() * (id-1))
-        }))
+        nodes: [...Array(N).keys()].map(i => ({id: i})),
+        links: [...Array(N).keys()]
+            .filter(id => id)
+            .map(id => ({
+                source: id,
+                target: Math.round(Math.random() * (id - 1))
+            }))
     };
+    l("Graph111111222", ThreeForceGraph)
 
     const Graph = new ThreeForceGraph()
-      .graphData(gData);
+
+    l("Graph111111", Graph)
+    l("keysssss", Object.keys(Graph))
+
+    Graph.graphData(gData);
+
+
+    l("Graph111111", Graph)
+    l("keysssss", Object.keys(Graph))
 
     // Setup renderer
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('3d-graph').appendChild(renderer.domElement);
+
 
     // Setup scene
     const scene = new THREE.Scene();
@@ -48,22 +66,33 @@
     // Setup camera
     const camera = new THREE.PerspectiveCamera();
     camera.far = 10000;
-    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     camera.lookAt(Graph.position);
     camera.position.z = Math.cbrt(N) * 180;
 
     // Add camera controls
-    const tbControls = new TrackballControls(camera, renderer.domElement);
+
+
+    const c = false
+    if (c) {
+        const tbControls = new TrackballControls(camera, renderer.domElement);
+    }
+
 
     // Kick-off renderer
     (function animate() { // IIFE
-      Graph.tickFrame();
+        Graph.tickFrame();
 
-      // Frame cycle
-      tbControls.update();
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
+        // Frame cycle
+
+        if (c) {
+            tbControls.update();
+        }
+
+        renderer.render(scene, camera);
+
+        requestAnimationFrame(animate);
     })();
-  </script>
+</script>
 </body>

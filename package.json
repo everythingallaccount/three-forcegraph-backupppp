@@ -39,7 +39,9 @@
   "scripts": {
     "build": "rimraf dist && rollup -c",
     "dev": "rollup -w -c rollup.config.dev.js",
-    "prepare": "npm run build"
+    "d": "rollup -w -c rollup.config.dev.js",
+
+    "prepare1": "npm run build"
   },
   "files": [
     "dist/**/*"
@@ -54,10 +56,11 @@
     "kapsule": "1",
     "ngraph.forcelayout": "3",
     "ngraph.graph": "20",
-    "tinycolor2": "1"
+    "tinycolor2": "1",
+    "three": ">=0.118.3"
   },
   "peerDependencies": {
-    "three": ">=0.118.3"
+
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
