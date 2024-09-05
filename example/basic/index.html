@@ -29,7 +29,7 @@
 
 
     // Gen random data
-    const N = 30;
+    const N = 2;
     const gData = {
         nodes: [...Array(N).keys()].map(i => ({id: i})),
         links: [...Array(N).keys()]
@@ -39,60 +39,66 @@
                 target: Math.round(Math.random() * (id - 1))
             }))
     };
-    l("Graph111111222", ThreeForceGraph)
-
-    const Graph = new ThreeForceGraph()
-
-    l("Graph111111", Graph)
-    l("keysssss", Object.keys(Graph))
-
-    Graph.graphData(gData);
+    l("gdata", gData)
+    // return
 
 
-    l("Graph111111", Graph)
-    l("keysssss", Object.keys(Graph))
+    if (0) {
+        l("Graph111111222", ThreeForceGraph)
 
-    // Setup renderer
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('3d-graph').appendChild(renderer.domElement);
+        const Graph = new ThreeForceGraph()
 
+        l("Graph111111", Graph)
+        l("keysssss", Object.keys(Graph))
 
-    // Setup scene
-    const scene = new THREE.Scene();
-    scene.add(Graph);
-    scene.add(new THREE.AmbientLight(0xcccccc, Math.PI));
-
-    // Setup camera
-    const camera = new THREE.PerspectiveCamera();
-    camera.far = 10000;
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    camera.lookAt(Graph.position);
-    camera.position.z = Math.cbrt(N) * 180;
-
-    // Add camera controls
+        Graph.graphData(gData);
 
 
-    const c = false
-    if (c) {
-        const tbControls = new TrackballControls(camera, renderer.domElement);
-    }
+        l("Graph111111", Graph)
+        l("keysssss", Object.keys(Graph))
+
+        // Setup renderer
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('3d-graph').appendChild(renderer.domElement);
 
 
-    // Kick-off renderer
-    (function animate() { // IIFE
-        Graph.tickFrame();
+        // Setup scene
+        const scene = new THREE.Scene();
+        scene.add(Graph);
+        scene.add(new THREE.AmbientLight(0xcccccc, Math.PI));
 
-        // Frame cycle
+        // Setup camera
+        const camera = new THREE.PerspectiveCamera();
+        camera.far = 10000;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        camera.lookAt(Graph.position);
+        camera.position.z = Math.cbrt(N) * 180;
 
+        // Add camera controls
+
+
+        const c = false
         if (c) {
-            tbControls.update();
+            const tbControls = new TrackballControls(camera, renderer.domElement);
         }
 
-        renderer.render(scene, camera);
 
-        requestAnimationFrame(animate);
-    })();
+        // Kick-off renderer
+        (function animate() { // IIFE
+            Graph.tickFrame();
+
+            // Frame cycle
+
+            if (c) {
+                tbControls.update();
+            }
+
+            renderer.render(scene, camera);
+
+            requestAnimationFrame(animate);
+        })();
+    }
 </script>
 </body>
