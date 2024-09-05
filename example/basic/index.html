@@ -89,26 +89,45 @@
 
             // Kick-off renderer
             (function animate() { // IIFE
+
+
+
+                if (typeof animate.counter === 'undefined') {
+                    animate.counter = 0;
+                }
+
+                // Update animation logic here, like moving or changing elements
+
+                // Increment the frame counter
+                animate.counter++;
+
+
+
+
+
+
                 Graph.tickFrame();
 
                 // Frame cycle
-
                 if (c) {
                     tbControls.update();
                 }
-
                 renderer.render(scene, camera);
 
 
                 if (0) {
                     requestAnimationFrame(animate);
                 }else {
-                    setTimeout(animate,
 
-                        // 1000 / 60
-                    1000 / .5
 
-                    );
+                    if (animate.counter < 3) {
+                        setTimeout(animate,
+
+                            // 1000 / 60
+                            1000 / .5
+                        );
+                    } else {
+                    }
                 }
 
 
