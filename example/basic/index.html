@@ -58,7 +58,7 @@
         l("keysssss", Object.keys(Graph))
 
 
-        if (0) { // Setup renderer
+        if (1) { // Setup renderer
             const renderer = new THREE.WebGLRenderer();
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.getElementById('3d-graph').appendChild(renderer.domElement);
@@ -99,7 +99,14 @@
 
                 renderer.render(scene, camera);
 
-                requestAnimationFrame(animate);
+
+                if (1) {
+                    requestAnimationFrame(animate);
+                }else {
+                    animate()
+                }
+
+
             })();
         }
     }
