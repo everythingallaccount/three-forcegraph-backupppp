@@ -36,14 +36,14 @@
             .filter(id => id)
             .map(id => ({
                 source: id,
-                target: Math.round(Math.random() * (id - 1))
+                target: 0?Math.round(Math.random() * (id - 1)): id-1
             }))
     };
     l("gdata", gData)
     // return
 
 
-    if (0) {
+    if (1) {
         l("Graph111111222", ThreeForceGraph)
 
         const Graph = new ThreeForceGraph()
@@ -57,48 +57,51 @@
         l("Graph111111", Graph)
         l("keysssss", Object.keys(Graph))
 
-        // Setup renderer
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('3d-graph').appendChild(renderer.domElement);
+
+        if (0) { // Setup renderer
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('3d-graph').appendChild(renderer.domElement);
 
 
-        // Setup scene
-        const scene = new THREE.Scene();
-        scene.add(Graph);
-        scene.add(new THREE.AmbientLight(0xcccccc, Math.PI));
+            // Setup scene
+            const scene = new THREE.Scene();
+            scene.add(Graph);
+            scene.add(new THREE.AmbientLight(0xcccccc, Math.PI));
 
-        // Setup camera
-        const camera = new THREE.PerspectiveCamera();
-        camera.far = 10000;
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        camera.lookAt(Graph.position);
-        camera.position.z = Math.cbrt(N) * 180;
+            // Setup camera
+            const camera = new THREE.PerspectiveCamera();
+            camera.far = 10000;
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            camera.lookAt(Graph.position);
+            camera.position.z = Math.cbrt(N) * 180;
 
-        // Add camera controls
-
-
-        const c = false
-        if (c) {
-            const tbControls = new TrackballControls(camera, renderer.domElement);
-        }
+            // Add camera controls
 
 
-        // Kick-off renderer
-        (function animate() { // IIFE
-            Graph.tickFrame();
-
-            // Frame cycle
-
+            const c = 1
+            let tbControls;
             if (c) {
-                tbControls.update();
+                tbControls = new TrackballControls(camera, renderer.domElement);
             }
 
-            renderer.render(scene, camera);
 
-            requestAnimationFrame(animate);
-        })();
+            // Kick-off renderer
+            (function animate() { // IIFE
+                Graph.tickFrame();
+
+                // Frame cycle
+
+                if (c) {
+                    tbControls.update();
+                }
+
+                renderer.render(scene, camera);
+
+                requestAnimationFrame(animate);
+            })();
+        }
     }
 </script>
 </body>
