@@ -29,7 +29,10 @@
 
 
     // Gen random data
-    const N = 2;
+
+
+    let debug = 0
+    const N = debug? 2:300;
     const gData = {
         nodes: [...Array(N).keys()].map(i => ({id: i})),
         links: [...Array(N).keys()]
@@ -120,11 +123,13 @@
                 }else {
 
 
-                    if (animate.counter < 3) {
+                    if (animate.counter < 3||!debug) {
                         setTimeout(animate,
+                            debug?
+                                1000
+                                :
+                                1000 / 60
 
-                            // 1000 / 60
-                            1000 / .5
                         );
                     } else {
                     }
