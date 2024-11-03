@@ -3,7 +3,7 @@ export default function (kapsule, baseClass = Object, initKapsuleWithSelf = fals
     class FromKapsule extends baseClass {
         constructor(...args) {
 
-            console.log("FromKapsule constructor111, args:", args);
+            // console.log("FromKapsule constructor111, args:", args);
 
 
             super(...args);
@@ -29,7 +29,7 @@ export default function (kapsule, baseClass = Object, initKapsuleWithSelf = fals
             m => {
 
 
-                console.log("FromKapsule constructor222, m:", m);
+                // console.log("FromKapsule constructor222, m:", m);
                 FromKapsule.prototype[m] = function (...args) {
 
 

@@ -31,15 +31,17 @@
     // Gen random data
 
 
-    let debug = 0
-    const N = debug? 2:300;
+    let debug = 1
+    const N = debug? 3:100;
     const gData = {
         nodes: [...Array(N).keys()].map(i => ({id: i})),
         links: [...Array(N).keys()]
             .filter(id => id)
             .map(id => ({
                 source: id,
-                target: 0?Math.round(Math.random() * (id - 1)): id-1
+                target:
+
+                    !debug ?Math.round(Math.random() * (id - 1)): id-1
             }))
     };
     l("gdata", gData)
@@ -108,7 +110,8 @@
 
 
 
-
+                l("animate.counterrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" +
+                    "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", animate.counter)
                 Graph.tickFrame();
 
                 // Frame cycle
@@ -118,12 +121,15 @@
                 renderer.render(scene, camera);
 
 
-                if (0) {
+                if (
+                    !debug
+
+                ) {
                     requestAnimationFrame(animate);
                 }else {
 
 
-                    if (animate.counter < 3||!debug) {
+                    if (animate.counter < 2||!debug) {
                         setTimeout(animate,
                             debug?
                                 1000
